@@ -118,7 +118,18 @@ Organizing and visualizing search and news data reinforced that these variables 
 
 The project also showed that an interesting visualization does not justify a causal conclusion, and that a cluster containing only one stock is too unstable to generalize as a recurring market pattern.
 
-Future work would test whether the observations remain stable across different analysis periods and cluster counts. If data-use rights and team consent are confirmed, the next documentation step would be to publish reviewable preprocessing code and a visualization Notebook.
+Future work would test whether the observations remain stable across different analysis periods and cluster counts.
+
+## Future Public Materials
+
+If data-use rights and team consent are confirmed, planned additions are:
+
+- Data preprocessing Notebook
+- Visualization Notebook
+- Public-safe sample schema
+- Reproducible figure-generation workflow
+
+These materials are not currently available in this repository.
 
 ## Reproduction Status
 
