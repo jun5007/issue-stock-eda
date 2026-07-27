@@ -1,10 +1,13 @@
+**English** | [한국어](./README.ko.md)
+
 # Data Publication Status
 
 This directory contains documentation only. It does not contain raw, derived, synthetic, or sample data.
 
 ## Public files
 
-- `README.md`: publication-status documentation
+- `README.md`: English publication-status documentation
+- `README.ko.md`: Korean publication-status documentation
 
 No CSV, XLSX, HWP, Parquet, database, or sample dataset is published here.
 
@@ -27,3 +30,7 @@ The `3,620 × 29` size mentioned in the repository README is an unverified histo
 Independent reproduction is unavailable. This documentation does not provide a verified schema, analysis period, value units, preprocessing code, Notebook, executable pipeline, or random seed.
 
 FOMO in this repository refers only to a market-attention proxy based on news and search activity. No published data directly measures investor psychology or behavior.
+
+---
+
+[Back to English Project README](../README.md)

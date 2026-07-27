@@ -1,157 +1,131 @@
-# 뉴스·검색 트렌드와 주식시장 반응 탐색
+**English** | [한국어](./README.ko.md)
 
-> Exploratory Analysis of Market-Attention Proxies and Next-Trading-Day Responses
->
-> 2025년 2학년 2학기, 4인 탐색적 데이터 분석 팀 프로젝트
+# News/Search Trends & Stock Market Response
 
-뉴스량과 검색량을 결합한 `이슈강도`와 다음 거래일의 가격·거래량 반응을 탐색한 프로젝트입니다. 이 저장소에서 FOMO는 오직 **시장 관심도의 해석적 proxy**를 뜻하며, 투자자 심리나 행동을 직접 관찰·측정했다는 의미로 사용하지 않습니다.
+> Exploratory analysis of market-attention proxies and next-trading-day price and volume responses
+> 4-person team project · Year 2, Semester 2, 2025
 
-## Repository status
+## Project Overview
 
-| 항목 | 현재 상태 |
+This project explored whether changes in news volume and search activity were associated with next-trading-day stock-price and trading-volume responses. News counts and search volume were combined into an `issue_intensity` variable as an interpretive **market-attention proxy**.
+
+In this project, the term FOMO does not mean that investor psychology or behavior was directly observed or measured. The analysis was exploratory and was not designed to establish causality or validate a trading strategy.
+
+## Research Question
+
+The project considered days with increased news and search activity as periods of higher market attention and explored three questions:
+
+1. Is higher market attention associated with the direction of next-trading-day returns?
+2. Is higher market attention associated with next-trading-day trading volume?
+3. Can stock-level response patterns be grouped through exploratory clustering?
+
+## Project Status
+
+| Item | Current public status |
 |---|---|
-| 저장소 유형 | **Documentation Only** |
-| 프로젝트 설명 | 공개 |
-| 분석 코드·Notebook | 존재하지 않음 |
-| 데이터 설명 | [`data/README.md`](data/README.md)만 공개 |
-| 원본·파생·샘플 데이터 | 존재하지 않음 |
-| 개인 기여 기록 | 사용자 확인에 근거해 팀 공동 업무와 개인 담당 업무를 구분하여 아래에 명시 |
-| 프로젝트 회고 | [배운 점과 개선 방향](#배운-점과-개선-방향) 섹션 공개 |
-| 독립 재현 | **Unavailable** |
+| Project type | **Team Project** |
+| Repository type | **Documentation Only** |
+| Project documentation | Public in this README |
+| Data documentation | Public in [`data/README.md`](./data/README.md) |
+| Analysis code and Notebook | Not public in this repository |
+| Original, derived, and sample data | Not public in this repository |
+| Environment list | [`requirements.txt`](requirements.txt) is public but does not pin package versions |
+| Independent reproduction | **Unavailable** |
 
-현재 저장소에는 문서와 버전이 고정되지 않은 환경 목록만 있습니다. 아래 분석 단계와 수치는 원본 팀 프로젝트 문서에 남아 있는 **검증되지 않은 과거 기록**이며, 이 저장소의 공개 자료만으로 재계산하거나 독립적으로 검증할 수 없습니다.
+The methodology and numerical values below are historical records from the original team documents. They cannot be recalculated or independently verified from the files currently available in this repository.
 
-## 문제 정의
+## Data Sources
 
-뉴스 기사 수와 검색량이 증가한 날을 시장의 관심이 커진 시점으로 보고 다음 질문을 탐색했습니다.
-
-1. 관심도 증가는 다음 거래일 수익률 방향과 관련이 있는가?
-2. 관심도 증가는 다음 거래일 거래량과 관련이 있는가?
-3. 종목별 반응 패턴을 탐색적으로 군집화할 수 있는가?
-
-본 분석은 인과관계 검증이나 매매 전략 성능 평가가 아니라, 제한된 표본에서 관찰되는 기술적 패턴을 정리하는 데 목적이 있습니다.
-
-## 데이터 범위
-
-| 출처 | 데이터 | 활용 목적 |
+| Source | Data | Intended use |
 |---|---|---|
-| [KRX 정보데이터시스템](https://data.krx.co.kr/) | 일별 시세, 거래량, 수급 | 가격·거래량·수급 반응 |
-| [네이버 데이터랩](https://datalab.naver.com/) | 종목별 검색량 | 대중 관심도의 proxy |
-| [BIGKinds](https://www.bigkinds.or.kr/) | 종목별 뉴스 기사 건수 | 뉴스 관심도의 proxy |
+| [KRX Information Data System](https://data.krx.co.kr/) | Daily prices, trading volume, and investor-flow fields | Price, volume, and flow responses |
+| [Naver DataLab](https://datalab.naver.com/) | Search volume by stock | Public-attention proxy |
+| [BIGKinds](https://www.bigkinds.or.kr/) | News-article counts by stock | News-attention proxy |
 
-- 분석 대상: 삼성전자, NAVER, 카카오, 현대차, LG에너지솔루션, 셀트리온, 에코프로, 펄어비스, 포스코퓨처엠, 한화오션
-- 원본 팀 문서의 미검증 과거 기록: 통합 데이터 `3,620행 × 29개 변수`
-- 결합 키: `date`, `종목`
-- 분석 기간·수집일·10개 종목 선정 기준: 공개 기록만으로 확인할 수 없음
+The historical analysis covered 10 stocks: Samsung Electronics, NAVER, Kakao, Hyundai Motor, LG Energy Solution, Celltrion, Ecopro, Pearl Abyss, POSCO Future M, and Hanwha Ocean.
 
-원본 CSV/XLSX/HWP와 팀 보고서는 데이터 이용조건과 공동저작권 확인 전까지 포함하지 않습니다.
+The original team documents record an integrated dataset of **3,620 rows × 29 variables**. This figure is an unverified historical record. The analysis period, collection dates, and rationale for selecting the 10 stocks cannot be confirmed from the public repository.
 
-## 원본 팀 문서에 기록된 데이터 처리
+Original CSV, XLSX, and HWP files and the team report are not public while data-use conditions, joint authorship, and team consent remain unconfirmed.
 
-다음 단계는 원본 팀 문서의 과거 설명을 요약한 것이며, 실행 코드가 없어 현재 저장소에서 검증되지 않았습니다.
+## Methodology
 
-1. 종목별 wide-format 자료를 `date`, `종목`, `변수` 기준 long format으로 변환
-2. 뉴스·검색·주식 데이터를 `date`, `종목` 기준으로 결합
-3. 휴장일 이슈를 다음 거래일과 연결하기 위해 `next_trade_date` 생성
-4. 가격·보유량 계열은 forward fill
-5. 거래량·수급 계열의 결측은 분석 정의에 따라 0으로 처리
-6. 뉴스 건수와 검색량에 `log1p` 변환 적용
+The original team documents describe the following workflow. Because the executable code and data are not public, the steps have not been independently verified in this repository.
 
-| 변수 | 정의 |
+### Historical data processing
+
+1. Reshape stock-level wide-format data into long format using `date`, `종목`, and `변수`.
+2. Merge news, search, and market data using `date` and `종목`.
+3. Create `next_trade_date` to associate events on market holidays with the next trading day.
+4. Forward-fill price and holding-related fields.
+5. Fill missing trading-volume and investor-flow fields with `0` according to the analysis definitions.
+6. Apply `log1p` transformations to news counts and search volume.
+
+| Variable | Historical definition |
 |---|---|
 | `뉴스_log` | `log1p(뉴스건수)` |
 | `검색_log` | `log1p(검색량)` |
 | `이슈강도` | `뉴스_log + 검색_log` |
-| `등락률_abs` | 등락률의 절댓값 |
+| `등락률_abs` | Absolute value of the daily return |
 | `거래량_log` | `log1p(거래량)` |
-| `등락률_next` | 다음 거래일 등락률 |
-| `거래량_log_next` | 다음 거래일 로그 거래량 |
+| `등락률_next` | Next-trading-day return |
+| `거래량_log_next` | Next-trading-day log trading volume |
 
-## 원본 팀 문서에 기록된 분석 설계
+### Historical analysis design
 
-다음 설계도 실행 코드와 원본 데이터가 없는 상태에서 정리한 미검증 과거 기록입니다.
+- **Clustering:** Standardize summary measures related to return volatility and trading-volume spikes, then apply the historically recorded K-Means setting of `K=3`.
+- **Event comparison:** Select the single highest-`이슈강도` date for each stock and compare returns and trading volume around that event.
+- **Holiday handling:** Associate an event on a market holiday with the next trading day.
+- **Correlation review:** Compare `이슈강도` with next-trading-day returns and trading volume, including stock-level differences.
 
-### 종목 군집화
-
-- 입력: 수익률 변동성과 거래량 spike 관련 요약값
-- 전처리: `StandardScaler`
-- 원본 팀 문서의 미검증 설정: K-Means, `K=3`
-- 용도: 종목 간 반응 유형을 탐색적으로 비교
-
-### 이벤트 비교
-
-- 종목별 `이슈강도` 상위 1개 날짜를 이벤트일로 사용
-- 이벤트 전후 수익률과 거래량을 기술적으로 비교
-- 휴장일 이벤트는 다음 거래일 반응과 연결
-
-### 상관관계
-
-- `이슈강도`와 다음 거래일 등락률
-- `이슈강도`와 다음 거래일 거래량
-- 종목별 상관계수 차이
-
-## 원본 팀 문서의 미검증 과거 수치
-
-| 비교 | 원본 팀 문서의 과거 기록 | 현재 공개 범위에서의 상태 |
-|---|---:|---|
-| 이슈강도 vs. 다음 거래일 등락률 | 약 `0.03` | 미검증·재계산 불가 |
-| 이슈강도 vs. 다음 거래일 거래량 | 약 `0.56` | 미검증·재계산 불가 |
-
-원본 팀 문서에는 `K=3` 군집 중 한 군집에 에코프로만 포함됐다고 기록되어 있습니다. 이 내용 역시 공개 자료로 검증되지 않았으며, 사실로 확정하거나 안정적인 시장 유형으로 일반화하지 않습니다.
-
-## Reproducibility
-
-**Independent reproduction is unavailable.**
-
-`requirements.txt`는 패키지 이름만 나열한 참고 목록이며 버전 lock 파일이 아닙니다. 분석 코드, Notebook, 데이터, 실행 순서와 random seed가 없으므로 환경 설치만으로 과거 수치나 군집 결과를 생성할 수 없습니다.
-
-## 제안 구조 — 현재 존재하지 않음
-
-아래 항목은 공개 권리와 팀 동의가 확인되는 경우에 사용할 수 있는 구조 제안입니다. 현재 저장소의 실제 파일 목록이 아니며, 이 문서가 존재를 약속하지도 않습니다.
-
-| 제안 경로 | 현재 상태 | 공개 전제 |
-|---|---|---|
-| `notebooks/` | 존재하지 않음 | 코드 권리와 개인 기여 확인 |
-| `data/sample/` | 존재하지 않음 | 재배포 조건·스키마·비식별성 확인 |
-| `reports/figures/` | 존재하지 않음 | 팀 공개 동의와 그림 권리 확인 |
-
-원본 데이터와 팀 보고서는 데이터 이용조건, 공동저작권과 팀 공개 동의가 확인되기 전까지 제외합니다.
-
-## 한계
-
-- 뉴스량과 검색량은 투자자의 실제 FOMO 심리를 직접 측정하지 않습니다.
-- 긍정·부정 뉴스 방향을 구분하지 않아 관심 증가의 의미가 섞일 수 있습니다.
-- 10개 종목과 종목별 단일 대표 이벤트만 사용해 표본이 작습니다.
-- 상관관계는 종목·시장·시간 효과를 통제하지 않았으며 인과관계를 뜻하지 않습니다.
-- 원본 팀 문서의 `K=3` 및 singleton cluster 기록은 현재 공개 자료로 검증되지 않았습니다.
-- 공개 코드와 데이터가 없어 현재 결과를 독립 검증할 수 없습니다.
+These methods applied techniques learned in class to a limited exploratory dataset. They do not constitute a new algorithm or a validated causal model.
 
 ## My Contribution
 
-Project Type: 4인 팀 프로젝트
+- Collected Naver search-volume data together with the other team members.
+- Organized BIGKinds news data together with the other team members.
+- Completed the final consolidation of the collected data and analysis results.
+- Was responsible for the main visualization work.
 
-팀원 이름은 공개 동의 확인 전까지 공개하지 않습니다.
+This was a team project. Holiday handling, `이슈강도` feature design, and K-Means clustering are not claimed as Seokjun Lee's individual contributions.
 
-- 팀원들과 함께 네이버 검색량 데이터 수집
-- 팀원들과 함께 BIGKinds 뉴스 데이터 정리
-- 수집된 데이터와 분석 결과의 최종 정리
-- 주요 분석 결과 시각화
+## Historical Findings
 
-위에 확인된 업무 외에 휴장일 처리, 이슈강도 파생변수 설계, K-Means 군집화 등은 Seokjun Lee의 개인 기여로 주장하지 않습니다. 팀 프로젝트를 개인 단독 프로젝트처럼 설명하지 않으며, 원본 데이터와 팀 보고서도 권리 확인 전 공개하지 않습니다.
+The following values are **unverified historical records** from the original team documents:
 
-## 배운 점과 개선 방향
+| Comparison | Historical record | Current verification status |
+|---|---:|---|
+| `이슈강도` vs. next-trading-day return | Approximately `0.03` | Cannot be recalculated or independently verified |
+| `이슈강도` vs. next-trading-day trading volume | Approximately `0.56` | Cannot be recalculated or independently verified |
 
-아래 회고는 공개 저장소의 재현성 한계와 사용자 확인 기여를 기준으로 정리했습니다.
+The original team documents also record that one of the `K=3` clusters contained only Ecopro. This singleton-cluster result cannot be verified from the public repository and should not be generalized as a stable market pattern.
 
-검색량과 뉴스량을 정리하고 시각화하는 과정에서,
-이러한 지표는 투자자의 심리를 직접 측정하는 값이 아니라
-시장 관심도를 나타내는 간접적인 지표에 가깝다는 점을 배웠습니다.
+These observations describe associations in a limited historical analysis. They do not establish a causal relationship between news or search activity and subsequent price or volume changes.
 
-또한 시각화 결과가 흥미롭게 보이더라도
-상관관계를 인과관계로 확대해서 해석해서는 안 되며,
-일부 군집에 하나의 종목만 포함된 결과는
-안정적인 패턴으로 일반화하기 어렵다는 점을 확인했습니다.
+## Limitations
 
-향후에는 분석 기간과 군집 수를 변경했을 때
-결과가 유지되는지 검토하고,
-공개 가능한 전처리 코드와 시각화 Notebook을 정리할 계획입니다.
+- News volume and search volume are indirect market-attention proxies, not direct measurements of investor FOMO, psychology, or behavior.
+- The analysis did not separate positive and negative news, so different meanings of increased attention may be mixed.
+- The sample was limited to 10 stocks and one representative event per stock.
+- The correlations did not control for stock, market, or time effects and must not be interpreted causally.
+- The historical `K=3` setting and singleton-cluster record cannot be verified with the public materials.
+- Analysis code, Notebook, and original, derived, and sample data are not public.
+- The historical numerical values and clustering result cannot currently be independently validated.
+
+## Lessons Learned and Next Steps
+
+Organizing and visualizing search and news data reinforced that these variables are closer to indirect measures of market attention than direct measurements of investor psychology.
+
+The project also showed that an interesting visualization does not justify a causal conclusion, and that a cluster containing only one stock is too unstable to generalize as a recurring market pattern.
+
+Future work would test whether the observations remain stable across different analysis periods and cluster counts. If data-use rights and team consent are confirmed, the next documentation step would be to publish reviewable preprocessing code and a visualization Notebook.
+
+## Reproduction Status
+
+**Independent reproduction is unavailable.**
+
+The repository does not publicly provide the analysis code, Notebook, original data, derived data, sample data, execution order, or random seed. In addition, `requirements.txt` lists package names without fixed versions. Installing those packages alone cannot reproduce the historical values or clustering result.
+
+---
+
+[Back to English Profile](https://github.com/jun5007) · [View English Portfolio](https://jun5007.github.io/)

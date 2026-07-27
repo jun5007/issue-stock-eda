@@ -22,6 +22,7 @@ Thumbs.db
 !data/
 data/*
 !data/README.md
+!data/README.ko.md
 !data/sample/
 !data/sample/**
 !results/
