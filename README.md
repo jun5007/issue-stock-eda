@@ -24,15 +24,15 @@ The project considered days with increased news and search activity as periods o
 | Item | Current public status |
 |---|---|
 | Project type | **Team Project** |
-| Repository type | **Documentation Only** |
+| Repository type | **Documentation + sanitized refactored Notebook** |
 | Project documentation | Public in this README |
 | Data documentation | Public in [`data/README.md`](./data/README.md) |
-| Analysis code and Notebook | Not public in this repository |
+| Analysis code and Notebook | [`notebooks/01_team_integrated_analysis.ipynb`](./notebooks/01_team_integrated_analysis.ipynb) |
 | Original, derived, and sample data | Not public in this repository |
 | Environment list | [`requirements.txt`](requirements.txt) is public but does not pin package versions |
-| Independent reproduction | **Unavailable** |
+| Independent reproduction | **Conditional; no end-to-end public-data run** |
 
-The methodology and numerical values below are historical records from the original team documents. They cannot be recalculated or independently verified from the files currently available in this repository.
+The public Notebook exposes a reviewed analysis flow, but the methodology and numerical values below remain historical records from the original team documents. They cannot be recalculated or independently verified without compatible, permitted source data.
 
 ## Data Sources
 
@@ -46,11 +46,11 @@ The historical analysis covered 10 stocks: Samsung Electronics, NAVER, Kakao, Hy
 
 The original team documents record an integrated dataset of **3,620 rows × 29 variables**. This figure is an unverified historical record. The analysis period, collection dates, and rationale for selecting the 10 stocks cannot be confirmed from the public repository.
 
-Original CSV, XLSX, and HWP files and the team report are not public while data-use conditions, joint authorship, and team consent remain unconfirmed.
+The user approved publication of the reviewed team code on 2026-07-29. Original CSV, XLSX, and HWP files, copied figures, and the team report remain excluded because code approval does not establish data redistribution or document-publication rights.
 
 ## Methodology
 
-The original team documents describe the following workflow. Because the executable code and data are not public, the steps have not been independently verified in this repository.
+The original team documents and the public refactored Notebook describe the following workflow. The Notebook was statically checked, but the steps have not been independently verified end to end because the input data are not public.
 
 ### Historical data processing
 
@@ -107,7 +107,8 @@ These observations describe associations in a limited historical analysis. They 
 - The sample was limited to 10 stocks and one representative event per stock.
 - The correlations did not control for stock, market, or time effects and must not be interpreted causally.
 - The historical `K=3` setting and singleton-cluster record cannot be verified with the public materials.
-- Analysis code, Notebook, and original, derived, and sample data are not public.
+- A sanitized refactored Notebook is public, but original, derived, and sample data are not.
+- The public Notebook has not completed a clean end-to-end run with permitted source data.
 - The historical numerical values and clustering result cannot currently be independently validated.
 
 ## Lessons Learned and Next Steps
@@ -118,22 +119,19 @@ The project also showed that an interesting visualization does not justify a cau
 
 Future work would test whether the observations remain stable across different analysis periods and cluster counts.
 
-## Future Public Materials
+## Public Code
 
-If data-use rights and team consent are confirmed, planned additions are:
+- [`notebooks/01_team_integrated_analysis.ipynb`](./notebooks/01_team_integrated_analysis.ipynb)
 
-- Data preprocessing Notebook
-- Visualization Notebook
-- Public-safe sample schema
-- Reproducible figure-generation workflow
+The Notebook is a `PORTFOLIO_REFACTORED_VERSION` of a team artifact. It may differ from the historically submitted or presented file and is not presented as solely authored code. Embedded outputs, execution counts, copied news excerpts, individual article links, local absolute paths, and inline installation commands were removed.
 
-These materials are not currently available in this repository.
+The separate two-stock visualization candidate was not selected because its sources and input files do not match the primary public flow.
 
 ## Reproduction Status
 
-**Independent reproduction is unavailable.**
+`STATICALLY_VALIDATED` · `CONDITIONAL_REPRODUCIBILITY` · `FULL_RUN_NOT_VERIFIED`
 
-The repository does not publicly provide the analysis code, Notebook, original data, derived data, sample data, execution order, or random seed. In addition, `requirements.txt` lists package names without fixed versions. Installing those packages alone cannot reproduce the historical values or clustering result.
+Code inspection is available through the public Notebook. Original, derived, and sample data are not redistributed, so execution requires compatible data obtained under the relevant source conditions. The Notebook has zero stored outputs and has not been clean-run in this repository. In addition, `requirements.txt` lists package names without fixed versions. The historical values and clustering result therefore remain unverified.
 
 ---
 

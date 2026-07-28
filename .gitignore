@@ -6,6 +6,9 @@ __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 data/
+outputs/
+results/
+reports/figures/
 *.csv
 *.xlsx
 *.xls
@@ -14,16 +17,16 @@ data/
 *.joblib
 *.hwp
 *.pdf
+*.ppt
+*.pptx
+*.doc
+*.docx
 *.zip
 .DS_Store
 Thumbs.db
 
-# Allow only deliberately reviewed public samples/results.
+# Keep only the reviewed data-access documentation.
 !data/
 data/*
 !data/README.md
 !data/README.ko.md
-!data/sample/
-!data/sample/**
-!results/
-!results/**
