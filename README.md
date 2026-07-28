@@ -87,8 +87,6 @@ These methods applied techniques learned in class to a limited exploratory datas
 - Completed the final consolidation of the collected data and analysis results.
 - Was responsible for the main visualization work.
 
-This was a team project. Holiday handling, `이슈강도` feature design, and K-Means clustering are not claimed as Seokjun Lee's individual contributions.
-
 ## Historical Findings
 
 The following values are **unverified historical records** from the original team documents:
